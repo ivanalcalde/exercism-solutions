@@ -42,7 +42,7 @@ defmodule RPG do
   end
 
   defimpl Edible, for: RPG.Poison do
-    def eat(poison, character) do
+    def eat(_poison, character) do
       {
         %RPG.EmptyBottle{},
         Map.put(character, :health, 0)
