@@ -22,12 +22,7 @@ main () {
   n=$1
   armstrong_n=$(armstrong_number "$n")
 
-  if [[ "$n" == "$armstrong_n" ]]
-  then
-    echo "true"
-  else
-    echo "false"
-  fi
+  (( n == armstrong_n )) && echo "true" || echo "false"
 }
 
 main "$@"
