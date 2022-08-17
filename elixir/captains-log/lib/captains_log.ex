@@ -2,12 +2,7 @@ defmodule CaptainsLog do
   @planetary_classes ["D", "H", "J", "K", "L", "M", "N", "R", "T", "Y"]
 
   def random_planet_class() do
-    planetary_classes_last_index = length(@planetary_classes) - 1
-
-    Enum.at(
-      @planetary_classes,
-      Enum.random(0..planetary_classes_last_index)
-    )
+    Enum.random(@planetary_classes)
   end
 
   def random_ship_registry_number() do
