@@ -19,7 +19,7 @@ defmodule CaptainsLog do
     range_end = 42_000
     range_width = range_end - range_start
 
-    :random.uniform() * range_width + range_start
+    :rand.uniform() * range_width + range_start
   end
 
   def format_stardate(stardate) when not is_float(stardate), do: raise(ArgumentError)
