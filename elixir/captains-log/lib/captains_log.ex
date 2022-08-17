@@ -2,18 +2,30 @@ defmodule CaptainsLog do
   @planetary_classes ["D", "H", "J", "K", "L", "M", "N", "R", "T", "Y"]
 
   def random_planet_class() do
-    # Please implement the random_planet_class/0 function
+    planetary_classes_last_index = length(@planetary_classes) - 1
+
+    Enum.at(
+      @planetary_classes,
+      Enum.random(0..planetary_classes_last_index)
+    )
   end
 
   def random_ship_registry_number() do
-    # Please implement the random_ship_registry_number/0 function
+    "NCC-#{Enum.random(1000..9999)}"
   end
 
   def random_stardate() do
-    # Please implement the random_stardate/0 function
+    range_start = 41_000
+    range_end = 42_000
+    range_width = range_end - range_start
+
+    :random.uniform() * range_width + range_start
   end
 
+  def format_stardate(stardate) when not is_float(stardate), do: raise(ArgumentError)
+
   def format_stardate(stardate) do
-    # Please implement the format_stardate/1 function
+    :io_lib.format("~.1f", [Float.ceil(stardate, 2)])
+    |> to_string()
   end
 end
