@@ -25,9 +25,9 @@ function main {
   is_all_mayus "${input}"
   local all_mayus=$?
 
-  (($question == 0 && $all_mayus == 0)) && echo_and_exit "Calm down, I know what I'm doing!"
-  (($question == 0)) && echo_and_exit "Sure."
-  (($all_mayus == 0)) && echo_and_exit "Whoa, chill out!"
+  ((question == 0 && all_mayus == 0)) && echo_and_exit "Calm down, I know what I'm doing!"
+  ((question == 0)) && echo_and_exit "Sure."
+  ((all_mayus == 0)) && echo_and_exit "Whoa, chill out!"
   echo_and_exit "Whatever."
 }
 
