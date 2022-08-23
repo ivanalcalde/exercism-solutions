@@ -1,24 +1,34 @@
 #!/usr/bin/env bash
 
-# The following comments should help you get started:
-# - Bash is flexible. You may use functions or write a "raw" script.
-#
-# - Complex code can be made easier to read by breaking it up
-#   into functions, however this is sometimes overkill in bash.
-#
-# - You can find links about good style and other resources
-#   for Bash in './README.md'. It came with this exercise.
-#
-#   Example:
-#   # other functions here
-#   # ...
-#   # ...
-#
-#   main () {
-#     # your main function code here
-#   }
-#
-#   # call main with all of the positional arguments
-#   main "$@"
-#
-# *** PLEASE REMOVE THESE COMMENTS BEFORE SUBMITTING YOUR SOLUTION ***
+function is_question {
+  [[ "$1" =~ \?$ ]]
+}
+
+function is_all_mayus {
+  [[ "${1^^}" == "${1}" && "${1,,}" != "${1}" ]]
+}
+
+function echo_and_exit {
+  echo "$1"
+  exit 0
+}
+
+function main {
+  # clean the input for make it easy to work with
+  local input="${1:-}"
+  local input="${input//[^A-Za-z0-9?]/}"
+
+  [[ -z "$input" ]] && echo_and_exit "Fine. Be that way!"
+
+  is_question "${input}"
+  local question=$?
+  is_all_mayus "${input}"
+  local all_mayus=$?
+
+  (($question == 0 && $all_mayus == 0)) && echo_and_exit "Calm down, I know what I'm doing!"
+  (($question == 0)) && echo_and_exit "Sure."
+  (($all_mayus == 0)) && echo_and_exit "Whoa, chill out!"
+  echo_and_exit "Whatever."
+}
+
+main "$@"
