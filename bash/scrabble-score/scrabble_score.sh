@@ -33,11 +33,10 @@ main() {
   local total=${2:-0}
   if [[ "${1:0:1}" != "" ]]; then
     local letter="${1:0:1}"
-    local letter_points="$(get_points_by_letter $letter)"
+    local letter_points=$(get_points_by_letter "$letter")
     total=$((total + letter_points))
 
-    local next_index=$((index + 1))
-    main "${1:$((index + 1))}" "$total"
+    main "${1:1}" "$total"
   else
     echo "$total"
   fi
