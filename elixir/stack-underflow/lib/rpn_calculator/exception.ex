@@ -1,5 +1,21 @@
 defmodule RPNCalculator.Exception do
-  # Please implement DivisionByZeroError here.
+  defmodule DivisionByZeroError do
+    defexception message: "division by zero occurred"
+  end
 
-  # Please implement StackUnderflowError here.
+  defmodule StackUnderflowError do
+    defexception message: "stack underflow occurred"
+
+    @impl true
+    def exception([]), do: %StackUnderflowError{}
+
+    def exception(value) do
+      %StackUnderflowError{message: "stack underflow occurred, context: #{value}"}
+    end
+  end
+
+  def divide([]), do: raise(StackUnderflowError, "when dividing")
+  def divide([_divisor]), do: raise(StackUnderflowError, "when dividing")
+  def divide([0, _dividend]), do: raise(DivisionByZeroError)
+  def divide([divisor, dividend]), do: dividend / divisor
 end
