@@ -20,9 +20,8 @@ defmodule LucasNumbers do
 
     general_case_list =
       Stream.iterate({2, 1}, &generate_next_tuple/1)
+      |> Stream.map(&tuple_to_lucas_number/1)
       |> Enum.take(take_n)
-      |> Enum.to_list()
-      |> Enum.map(&tuple_to_lucas_number/1)
 
     base_case_list ++ general_case_list
   end
