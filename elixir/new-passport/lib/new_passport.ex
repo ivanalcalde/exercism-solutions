@@ -1,6 +1,13 @@
 defmodule NewPassport do
   def get_new_passport(now, birthday, form) do
-    # Please implement the 'get_new_passport/3' function
+    with {:ok, timestamp} <- enter_building(now),
+         {:ok, make_counter} <- find_counter_information(now),
+         {:ok, checksum} <- stamp_form(timestamp, make_counter.(birthday), form) do
+      {:ok, get_new_passport_number(timestamp, make_counter.(birthday), checksum)}
+    else
+      {:coffee_break, _} -> {:retry, NaiveDateTime.add(now, 15 * 60)}
+      _ = err -> err
+    end
   end
 
   # Do not modify the functions below
