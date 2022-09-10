@@ -33,8 +33,8 @@ defmodule TopSecret do
 
   defp get_children_from_tuple({_op, _meta, children}), do: children
 
-  defp get_first_children_but_not_guard([{:when, _metadata, args} | _tail]) do
-    get_first_children_but_not_guard(args)
+  defp get_first_children_but_not_guard([{:when, _metadata, children} | _tail]) do
+    get_first_children_but_not_guard(children)
   end
 
   defp get_first_children_but_not_guard([head | _tail]), do: head
