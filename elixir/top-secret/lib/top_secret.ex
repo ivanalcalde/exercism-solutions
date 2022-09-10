@@ -1,20 +1,16 @@
 defmodule TopSecret do
   def to_ast(string), do: Code.string_to_quoted!(string)
 
-  def decode_secret_message_part({op, _meta, children} = ast, acc) do
-    if op in [:def, :defp] do
-      function_tuple = get_first_children_but_not_guard(children)
+  def decode_secret_message_part({op, _meta, children} = ast, acc) when op in [:def, :defp] do
+    function_tuple = get_first_children_but_not_guard(children)
 
-      message_part =
-        make_message_part(
-          function_tuple |> get_op_from_tuple() |> Atom.to_string(),
-          function_tuple |> get_children_from_tuple()
-        )
+    message_part =
+      make_message_part(
+        function_tuple |> get_op_from_tuple() |> Atom.to_string(),
+        function_tuple |> get_children_from_tuple()
+      )
 
-      {ast, [message_part | acc]}
-    else
-      {ast, acc}
-    end
+    {ast, [message_part | acc]}
   end
 
   def decode_secret_message_part(ast, acc), do: {ast, acc}
