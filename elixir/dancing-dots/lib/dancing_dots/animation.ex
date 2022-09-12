@@ -11,11 +11,7 @@ defmodule DancingDots.Animation do
     quote do
       @behaviour DancingDots.Animation
 
-      @impl DancingDots.Animation
-      def init(opts) do
-        {:ok, opts}
-      end
-
+      def init(opts), do: {:ok, opts}
       defoverridable init: 1
     end
   end
@@ -29,6 +25,7 @@ defmodule DancingDots.Flicker do
     %{dot | opacity: dot.opacity / 2}
   end
 
+  @impl DancingDots.Animation
   def handle_frame(dot, _, _), do: dot
 end
 
@@ -48,8 +45,6 @@ defmodule DancingDots.Zoom do
   end
 
   @impl DancingDots.Animation
-  def handle_frame(dot, 1, _), do: dot
-
   def handle_frame(dot, frame_number, velocity: velocity) do
     radius_inc = (frame_number - 1) * velocity
 
@@ -94,15 +89,7 @@ defmodule DancingDots.Zoom do
     end
   end
 
-  defp make_error_message(field, type, nil) do
-    "The :#{field} option is required, and its value must be a #{type}. Got: nil"
-  end
-
-  defp make_error_message(field, type, value) when is_bitstring(value) do
-    "The :#{field} option is required, and its value must be a #{type}. Got: \"#{value}\""
-  end
-
   defp make_error_message(field, type, value) do
-    "The :#{field} option is required, and its value must be a #{type}. Got: #{value}"
+    "The :#{field} option is required, and its value must be a #{type}. Got: #{inspect(value)}"
   end
 end
