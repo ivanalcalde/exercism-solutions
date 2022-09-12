@@ -11,6 +11,7 @@ defmodule DancingDots.Animation do
     quote do
       @behaviour DancingDots.Animation
 
+      @impl DancingDots.Animation
       def init(opts) do
         {:ok, opts}
       end
