@@ -12,6 +12,12 @@ defmodule LogParser do
   end
 
   def tag_with_user_name(line) do
-    # Please implement the tag_with_user_name/1 function
+    case Regex.run(~r/User\s+(\S+)\s*/, line) do
+      nil ->
+        line
+
+      [_user_string, user_name | _tail] ->
+        String.replace_prefix(line, "", "[USER] #{user_name} ")
+    end
   end
 end
