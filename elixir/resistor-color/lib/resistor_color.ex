@@ -15,6 +15,7 @@ defmodule ResistorColor do
   @doc """
   Return the value of a color band
   """
-  @spec code(atom) :: integer()
-  def code(color), do: @band_colors[color]
+  @spec code(atom | String.t()) :: integer()
+  def code(color) when is_bitstring(color), do: code(String.to_atom(color))
+  def code(color) when is_atom(color), do: @band_colors[color]
 end
