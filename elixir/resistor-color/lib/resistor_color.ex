@@ -1,31 +1,30 @@
 defmodule ResistorColor do
   @band_colors [
-    black: 0,
-    brown: 1,
-    red: 2,
-    orange: 3,
-    yellow: 4,
-    green: 5,
-    blue: 6,
-    violet: 7,
-    grey: 8,
-    white: 9
+    "black",
+    "brown",
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "blue",
+    "violet",
+    "grey",
+    "white"
   ]
 
   @doc """
   Return the value of a color band
   """
   @spec code(atom | String.t()) :: integer()
-  def code(color) when is_bitstring(color), do: code(String.to_atom(color))
-  def code(color) when is_atom(color), do: @band_colors[color]
+  def code(color) when is_bitstring(color) do
+    Enum.find_index(@band_colors, &(&1 == color))
+  end
+
+  def code(color) when is_atom(color), do: code(Atom.to_string(color))
 
   @doc """
   Return the list of the colors
   """
   @spec colors() :: [String.t()]
-  def colors() do
-    @band_colors
-    |> Keyword.keys()
-    |> Enum.map(&Atom.to_string/1)
-  end
+  def colors(), do: @band_colors
 end
