@@ -22,9 +22,9 @@ defmodule ResistorColor do
 
   def code(color) when is_atom(color), do: code(Atom.to_string(color))
 
-  @doc """
-  Return the list of the colors
-  """
-  @spec colors() :: [String.t()]
-  def colors(), do: @band_colors
+  # @doc """
+  # Return the list of the colors
+  # """
+  # @spec colors() :: [String.t()]
+  # def colors(), do: @band_colors
 end
