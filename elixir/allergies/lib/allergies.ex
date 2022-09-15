@@ -16,7 +16,6 @@ defmodule Allergies do
            fn n1, n2 -> if(n1 == 1, do: 1, else: n2 * 2) end
          )
          |> Enum.to_list()
-         |> Enum.reverse()
 
   @doc """
   List the allergies for which the corresponding flag bit is true.
@@ -36,6 +35,7 @@ defmodule Allergies do
   """
   @spec allergic_to?(non_neg_integer, String.t()) :: boolean
   def allergic_to?(flags, item) do
+    list(flags) |> Enum.any?(&(&1 == item))
   end
 
   defp get_close_step_number(n) do
