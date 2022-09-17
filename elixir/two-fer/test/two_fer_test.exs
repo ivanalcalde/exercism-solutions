@@ -1,5 +1,7 @@
 defmodule TwoFerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
+
+  doctest TwoFer
 
   test "no name given" do
     assert TwoFer.two_fer() == "One for you, one for me."
