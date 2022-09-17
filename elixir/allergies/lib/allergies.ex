@@ -1,6 +1,4 @@
 defmodule Allergies do
-  use Bitwise, only_operators: true
-
   @allergies %{
     "eggs" => 1,
     "peanuts" => 2,
@@ -26,5 +24,5 @@ defmodule Allergies do
   Returns whether the corresponding flag bit in 'flags' is set for the item.
   """
   @spec allergic_to?(non_neg_integer, String.t()) :: boolean
-  def allergic_to?(flags, item), do: (@allergies[item] &&& flags) > 0
+  def allergic_to?(flags, item), do: Bitwise.band(@allergies[item], flags) > 0
 end
