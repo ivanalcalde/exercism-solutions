@@ -7,7 +7,7 @@ defmodule ArmstrongNumber do
   def valid?(number) do
     number
     |> Integer.digits()
-    |> (fn xs -> pow_list(xs, length(xs)) end).()
+    |> (&pow_list(&1, length(&1))).()
     |> Enum.sum() == number
   end
 
