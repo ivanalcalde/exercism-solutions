@@ -6,9 +6,7 @@ defmodule ArmstrongNumber do
   @spec valid?(integer) :: boolean
   def valid?(number) do
     number
-    |> to_string()
-    |> String.graphemes()
-    |> Enum.map(&String.to_integer/1)
+    |> Integer.digits()
     |> (fn xs -> pow_list(xs, length(xs)) end).()
     |> Enum.sum() == number
   end
