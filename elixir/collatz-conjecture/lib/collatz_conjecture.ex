@@ -9,5 +9,16 @@ defmodule CollatzConjecture do
   """
   @spec calc(input :: pos_integer()) :: non_neg_integer()
   def calc(input) do
+    calc_step(input, 0)
+  end
+
+  defp calc_step(1, steps), do: steps
+
+  defp calc_step(n, steps) when is_integer(n) and n > 1 do
+    if Integer.is_odd(n) do
+      calc_step(n * 3 + 1, steps + 1)
+    else
+      calc_step(div(n, 2), steps + 1)
+    end
   end
 end
