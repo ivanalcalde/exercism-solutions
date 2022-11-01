@@ -9,13 +9,11 @@ defmodule ETL do
   """
   @spec transform(map) :: map
   def transform(input) do
-    input
-    |> Enum.to_list()
-    |> Enum.map(fn {score, letters} -> 
-      for letter <- letters, do: {letter, score}
-    end)
-    |> List.flatten()
-    |> Enum.map(fn {letter,score} -> {String.downcase(letter),score} end)
-    |> Enum.into(%{})
+    for {score, letters} <- input,
+        letter <- letters,
+        downcased_letter = String.downcase(letter),
+        into: %{} do
+      {downcased_letter, score}    
+    end
   end
 end
