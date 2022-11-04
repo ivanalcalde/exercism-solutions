@@ -1,6 +1,4 @@
 defmodule NucleotideCount do
-  @nucleotides [?A, ?C, ?G, ?T]
-
   @doc """
   Counts individual nucleotides in a DNA strand.
 
@@ -14,10 +12,7 @@ defmodule NucleotideCount do
   """
   @spec count(charlist(), char()) :: non_neg_integer()
   def count(strand, nucleotide) do
-    case histogram(strand) do
-      {:error, _} -> 0
-      histogram -> histogram[nucleotide] || 0
-    end
+    Enum.count(strand, &(&1 == nucleotide))
   end
 
   @doc """
@@ -28,22 +23,9 @@ defmodule NucleotideCount do
   iex> NucleotideCount.histogram('AATAA')
   %{?A => 4, ?T => 1, ?C => 0, ?G => 0}
   """
-  @histogram_base %{?A => 0, ?C => 0, ?G => 0, ?T => 0} 
-  @nucleotides Map.keys(@histogram_base)
-  @nucleotides_count length(@nucleotides)
-
   @spec histogram(charlist()) :: map() | tuple()
   def histogram(strand) do
-    h = strand
-    |> Enum.group_by(&(&1))
-    |> Enum.to_list()
-    |> Enum.map(fn {codepoint, chars} -> {codepoint, length(chars)} end)
-    |> Enum.into(@histogram_base)
-
-    if (length(Map.keys(h)) != @nucleotides_count) do
-      {:error, "strand contains invalid nucleotides"}
-    else
-      h
-    end
+    [?A, ?C, ?G, ?T]
+    |> Map.new(&{&1, count(strand, &1)})
   end
 end
