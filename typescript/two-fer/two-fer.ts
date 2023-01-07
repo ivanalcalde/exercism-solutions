@@ -3,8 +3,8 @@
  */
 
 export function twoFer(name?: string): string {
-  // ^                 ^   ^ this is called a return type; it's the type of the
-  // ^                 ^     value that is returned from this function
+  // ^                 ^                 ^ this is called a return type; it's the type of the
+  // ^                 ^                   value that is returned from this function
   // ^                 ^
   // ^                 parameters go here
   // ^
